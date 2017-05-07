@@ -1,0 +1,20 @@
+
+buildscript{
+    repositories {
+        mavenCentral()
+    }
+
+}
+apply plugin: 'java'
+apply plugin: 'scala'
+configurations {
+    provided
+}
+subprojects {
+}
+tasks.withType(ScalaCompile) {
+    configure(scalaCompileOptions.forkOptions) {
+        memoryMaximumSize = '1g'
+        jvmArgs = ['-XX:MaxPermSize=512m']
+    }
+}

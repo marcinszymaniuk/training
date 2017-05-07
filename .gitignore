@@ -1,0 +1,5 @@
+exercises/build
+solutions/build
+build/
+.idea
+.gradle

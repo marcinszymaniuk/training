@@ -1,0 +1,49 @@
+repositories {
+    mavenCentral()
+}
+
+def cdhVersion="5.11.0"
+def hadoopVersion="2.6.0"
+apply plugin:'java'
+apply plugin:'scala'
+
+configurations{
+    provided
+}
+dependencies {
+    compile 'org.scala-lang:scala-library:2.11.1'
+    compile 'au.com.bytecode:opencsv:2.4'
+    provided("org.apache.hadoop:hadoop-common:${hadoopVersion}-cdh${cdhVersion}") {
+        exclude group: 'org.apache.avro', module: 'avro'
+        exclude group: 'log4j'
+    }
+    compile group: 'org.springframework', name: 'spring-core', version: '4.3.0.RELEASE'
+
+    provided("org.apache.hadoop:hadoop-mapreduce-client-core:${hadoopVersion}-cdh${cdhVersion}") {
+        exclude group: 'org.jboss.netty', module: 'netty'
+        exclude group: 'org.apache.avro', module: 'avro'
+        exclude group: 'org.slf4j'
+        exclude group: 'log4j'
+    }
+
+
+    compile('org.apache.spark:spark-core_2.11:2.0.0') {
+        exclude module: 'javax.servlet'
+        exclude group: 'org.jboss.netty'
+    }
+}
+
+
+
+tasks.withType(ScalaCompile) {
+    configure(scalaCompileOptions.forkOptions) {
+        memoryMaximumSize = '1g'
+        jvmArgs = ['-XX:MaxPermSize=512m']
+    }
+}
+
+tasks.withType(ScalaCompile) {
+    scalaCompileOptions.with {
+        force = true
+    }
+}
