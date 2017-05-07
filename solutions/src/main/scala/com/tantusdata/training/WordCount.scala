@@ -1,33 +1,41 @@
 package com.tantusdata.training
 
 import org.apache.hadoop.fs.{FileSystem, Path}
+import org.apache.spark.rdd.RDD
 import org.apache.spark.{SparkConf, SparkContext}
 
 object WordCount {
 
   def main(args: Array[String]) {
-
     val conf = new SparkConf()
-      .setAppName("Demo")
-      .setMaster("local[3]")
+      .setAppName("WordCount")
+      .setMaster("local[2]")
     val spark = new SparkContext(conf)
-    val inputRdd = spark.textFile("/home/marcin/spark-training/exercises/input/1")
     val output: String = "/home/marcin/spark-training/exercises/output/1/"
     val fileSystem = FileSystem.get(spark.hadoopConfiguration)
     fileSystem.delete(new Path(output), true)
 
-    val words = inputRdd.flatMap(line => line.split(" "))
+    val inputRdd = spark.textFile("/home/marcin/spark-training/exercises/input/1")
 
-    println(inputRdd.toDebugString)
-    println(s"inputRdd partitions: ${inputRdd.partitions.size}")
+    val countersRdd = wordCount(inputRdd)
 
-    println(words.toDebugString)
-    println(s"words partitions: ${words.partitions.size}")
+    countersRdd.saveAsTextFile(output)
+  }
 
-    words.map(word => (word, 1))
-      .reduceByKey { case (x, y) => x + y }
-      .map { case (line, counter) => (counter, line) }
-      .saveAsTextFile(output)
+  def wordCount(inputRdd: RDD[String]): RDD[(String,Int)] = {
+
+
+    inputRdd.take(5).foreach(println)
+
+    inputRdd
+      .flatMap(line => line.split(" "))
+      .map(word => (word, 1))
+      .groupByKey()
+      .mapValues(counters=>counters.sum)
+
+    //BONUS solution: replace last two lines with:
+    //.reduceByKey{case (counter1, counter2) => counter1+counter2 }
+
   }
 
 }

@@ -1,5 +1,5 @@
-exercises/build
-solutions/build
+exercises/build/
+solutions/build/
 build/
 .idea
 .gradle

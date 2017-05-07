@@ -22,22 +22,45 @@ object WordCount {
     countersRdd.saveAsTextFile(output)
   }
 
-  def wordCount(inputRdd: RDD[String]) = {
-    val wordsRdd = inputRdd
-    .flatMap(line=>line.split(" "))
+  def wordCount(inputRdd: RDD[String]): RDD[(String, Int)] = {
     /*
-    TODO: transform inputRdd(containing lines from input file) to rdd containing words.
-    TODO     hint: str.split(" ") function
-    TODO     hint: use flatMap operation
+    TODO: Whenever you are not sure what and RDD contains you can materialize
+    TODO: it and print it's value by calling:
+    TODO: .collect.foreach(println)    -   prints all elements
+    TODO: or .take(5).foreach(println)  -  prints 5 elements
+    TODO: In order to get familiar with it try: wordsRdd.take(5).foreach(println)
+    */
+
+
+    /*
+    TODO 1:  transform inputRdd(containing lines from input file) to rdd containing words.
+    TODO 1   HINT: split function from String
+    TODO 1   HINT: use flatMap operation
      */
-    wordsRdd
-      /*
-      TODO: use map function to transform word into tuple of word and a counter initialized with value 1
-      */
-      .map(word => (word, 1))
+    /*
+    TODO 2: use map function to transform word into tuple of key:word and a value:counter initialized with value 1
+    */
 
-      .groupByKey()
-      .mapValues(x => x.foldLeft(0)(_ + _))
+    /*
+    TODO 3: group same words together
+    TODO 3:   HINT: use groupByKey
+    */
 
+    /*
+    TODO 4: After groupping by key you have an RDD with tuples: (key: String, value: Iterable[Int])
+    TODO 4: You need to find a sum of the value collection per key
+    TODO 4: HINT: Use mapValues function
+    TODO 4: HINT: use Iterable.sum function
+    */
+
+    /*
+    TODO Bonus: instead of groupping and then summing use reduceByKey function
+     */
+
+    /*
+    TODO 5: return the result rdd you defined -
+    TODO 5: right now we just return dummy one to avoid compilation failures
+     */
+    inputRdd.sparkContext.parallelize(List(("dummy",-1)))
   }
 }
