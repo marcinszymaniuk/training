@@ -1,4 +1,4 @@
-package com.tantusdata.training.first
+package com.tantusdata.training.common
 
 import org.apache.spark.{SparkConf, SparkContext}
 import org.scalatest.{BeforeAndAfter, Suite}
