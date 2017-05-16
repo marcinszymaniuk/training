@@ -22,9 +22,33 @@ object Main {
     val fileSystem = FileSystem.get(session.sparkContext.hadoopConfiguration)
     fileSystem.delete(new Path(output), true)
 
-    val dataSet = session.read.json("/home/marcin/spark-training/exercises/input/2")
-//      .as[Event]
-    dataSet.select("a").collect().foreach(println)
+    val dataSet = session.read.json("/home/marcin/spark-training-repo/training/solutions/input/2/typed")
+
+    val res0 = dataSet.groupBy("operatingSystem").count.collect()
+    val res01 = dataSet.selectExpr("*").where("operatingSystem is null").collect()
+    val res1 = dataSet.groupBy("operatingSystem").max("xCoord").collect()
+    val res2 = dataSet.groupBy("operatingSystem").mean("xCoord").collect()
+    val res3 = dataSet.groupBy("operatingSystem").count().collect()
+
+    println("XXX")
+    res01.foreach(println)
+//    res2.foreach(println)
+//    res3.foreach(println)
+//    dataSet.select("operatingSystem").collect().foreach(println)
+//    val res = dataSet.rdd
+//      .map(
+//        x=>Event(
+//          x.country
+//          x.getAs[String]("eventTime")
+//        )
+//      )
+//      .toDS()
+//      .groupBy("country")
+//    .count()
+
+//    res.collect().map(x=>x.getValuesMap())
+
+    print (s"Result: ${}")
     //    val inputRdd = spark.rea("/home/marcin/spark-training/exercises/input/2")
 
   }
