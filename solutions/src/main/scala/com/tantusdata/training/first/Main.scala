@@ -9,7 +9,7 @@ object Main {
   def main(args: Array[String]) {
     val conf = new SparkConf()
       .setAppName("WordCount")
-      .setMaster("local[2]")
+//      .setMaster("local[2]")
     val spark = new SparkContext(conf)
     val output: String = "/home/marcin/spark-training/exercises/output/1/"
     val fileSystem = FileSystem.get(spark.hadoopConfiguration)

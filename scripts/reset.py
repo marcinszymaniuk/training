@@ -22,10 +22,13 @@ def resetAll():
 
 	scripts_from="{0}/spark-training-repo/training/scripts".format(home_dir)
 	scripts_to="{0}/spark-training/scripts".format(home_dir)
-
+	
 	reset_dir(input_from, input_to)
 	reset_dir(src_from, src_to)
 	reset_dir(scripts_from, scripts_to)
+
+        subprocess.check_output("cp {0}/spark-training-repo/training/exercises/build.gradle {0}/spark-training/exercises/".format(home_dir),shell=True)
+        subprocess.check_output("cp {0}/spark-training-repo/training/exercises/run-local.sh {0}/spark-training/exercises/".format(home_dir),shell=True)
 
 def resetExercise(exerciseNo, solution=False):
         input_from="{0}/spark-training-repo/training/exercises/input/{1}".format(home_dir, exerciseNo)
@@ -36,8 +39,8 @@ def resetExercise(exerciseNo, solution=False):
         src_from="{0}/spark-training-repo/training/{1}/src/main/scala/com/tantusdata/training/{2}".format(home_dir,resetTo, numberToPackageName.get(exerciseNo))
         src_to="{0}/spark-training/exercises/src/main/scala/com/tantusdata/training/{1}".format(home_dir,numberToPackageName.get(exerciseNo))
 
-	test_from="{0}/spark-training-repo/training/{1}/src/test/scala/com/tantusdata/training/{2}".format(home_dir,resetTo, numberToPackageName.get(exerciseNo))
-        test_to="{0}/spark-training/exercises/src/test/scala/com/tantusdata/training/{1}".format(home_dir,numberToPackageName.get(exerciseNo))
+	test_from="{0}/spark-training-repo/training/scripts".format(home_dir)
+        test_to="{0}/spark-training/scripts".format(home_dir)
 
         reset_dir(input_from, input_to)
         reset_dir(src_from, src_to)
@@ -46,6 +49,6 @@ def resetExercise(exerciseNo, solution=False):
 
 
 #print isSolution
-#resetAll()
+resetAll()
 for i in range(1,number+1):
 	resetExercise(i, isSolution)
