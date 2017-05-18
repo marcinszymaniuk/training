@@ -55,6 +55,7 @@ object Main {
 
     /*
     TODO Bonus: instead of groupping and then summing use reduceByKey function
+    TODO Bonus2: what about some cleanup of the words?
      */
 
     /*

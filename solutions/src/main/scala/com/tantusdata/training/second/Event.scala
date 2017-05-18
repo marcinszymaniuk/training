@@ -8,6 +8,6 @@ case class Event (eventTime: String,
                   operatingSystemVersion: String,
                   appVersion:String,
                   registrationMonth: String,
-                  xCoord:String,
-                  yCoord: String
+                  xCoord:Double,
+                  yCoord: Double
                  )

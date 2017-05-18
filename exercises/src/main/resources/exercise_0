@@ -1,0 +1,14 @@
+# get familiar with content of spark-training/data/nasa_http
+# define an RDD which reads a from spark-training/data/nasa_http directory
+# check if the rdd is correct by calling .take(5)
+# try to extract a tuple with ipAddress, timestamp, http method, and url. Don't try to be too precise, if you filter out other informations that would be enough.
+# What about some data model? Define simple case class and try to map your rdd to one containing case class instances
+#can you make the filtering more precise?
+#does your case class define proper types or you are operating on strings? i.e. for timestamps
+#are you using anonymous functions? is it readable? if not maybe define some named functions?
+
+#do you have an rdd with logs you are happy about? let's count some things
+#how many distinct ipAddresses you have?
+#how many distinct http methods?
+#can you filter just GET methods?
+#If so, can you save your data with gets to a file?
