@@ -4,7 +4,7 @@ home_dir="/home/marcin"
 
 number=int(sys.argv[1])
 isSolution=sys.argv[2]=="True"
-numberToPackageName = {1:"first", 2:"second"}
+numberToPackageName = {1:"first", 2:"second", 3:"third"}
 
 
 def reset_dir(from_dir, to_dir):
