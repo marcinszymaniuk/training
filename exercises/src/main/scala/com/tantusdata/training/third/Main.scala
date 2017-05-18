@@ -34,7 +34,7 @@ object Main {
 
   case class UserEvent(username: String, os:String)
   def joinUsersAndEvents(usersRDD: RDD[String], eventsRDD: RDD[Event]): RDD[UserEvent] = {
-
+    usersRDD.sparkContext.parallelize(List())
 
   }
 
